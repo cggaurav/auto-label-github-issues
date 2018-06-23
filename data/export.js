@@ -9,7 +9,8 @@ const LABELS = [
 	"question",
 	"enhancement",
 	"feature",
-	"help wanted"
+	"help wanted",
+	"doc" // documentation
 	// "security",
 	// "test"
 ]
@@ -24,7 +25,12 @@ const REPOSITORES = [
 	"tgstation/tgstation",
 	"nodejs/node",
 	"servo/servo",
-	"ansible/ansible"
+	"ansible/ansible",
+
+	// Maybe
+	// "FortAwesome/Font-Awesome",
+	// "npm/npm",
+	// "golang/go"
 ]
 
 // DOCS

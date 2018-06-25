@@ -103,9 +103,5 @@ function makeGithubIssueRequest(repository, page = 1) {
 }
 
 Promise.each(REPOSITORES, (repository) => {
-	return new Promise((resolve, reject) => {
-
-		return makeGithubIssueRequest(repository)
-		
-	})
+	return makeGithubIssueRequest(repository)
 })

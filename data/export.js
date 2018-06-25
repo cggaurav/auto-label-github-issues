@@ -4,6 +4,7 @@ const fs = require('fs')
 
 const FILENAME = './data.csv'
 const ISSUES_PER_PAGE = 100
+const MAX_PAGE_LIMIT = 300
 const WAIT_TIME_BEFORE_REQUESTS = 50
 
 const LABELS = [
@@ -68,7 +69,7 @@ function makeGithubIssueRequest(repository, page = 1) {
 			// FORMAT: https://api.github.com/repos/kubernetes/kubernetes/issues?state=closed&page=1&per_page=1
 			const issues = body.data
 
-			if (issues.length === 0) {
+			if (issues.length === 0 || page > MAX_PAGE_LIMIT) {
 				return resolve()
 			}
 

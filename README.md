@@ -16,6 +16,7 @@ question
 enhancement
 feature
 help wanted
+doc
 ```
 
 ## Training Strategy

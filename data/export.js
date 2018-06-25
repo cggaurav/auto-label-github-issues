@@ -45,9 +45,12 @@ const REPOSITORES = [
 
 function writeIssueToFile(issue, labels) {
 	// FORMAT: https://api.github.com/repos/kubernetes/kubernetes/issues?state=closed&page=1&per_page=1
-	console.log(`Writing issue ${issue.url} with labels ${JSON.stringify(labels)}`)
 
-	fs.appendFileSync(FILENAME, [[issue.url, issue.id, `${(issue.title || '').replace(/,/g, ' ').replace(/\r|\n/g, ' ')}`, `${(issue.body || '').replace(/,/g, ' ').replace(/\r|\n/g, ' ')}`, Array.from(new Set(labels)).join('|')].join(','), '\n'].join(''))
+	labels = Array.from(new Set(labels)).join('|')
+
+	console.log(`Writing issue ${issue.url} with labels ${labels}`)
+
+	fs.appendFileSync(FILENAME, [[issue.url, issue.id, `${(issue.title || '').replace(/,/g, ' ').replace(/\r|\n/g, ' ')}`, `${(issue.body || '').replace(/,/g, ' ').replace(/\r|\n/g, ' ')}`].join(','), '\n'].join(''))
 }
 
 
@@ -96,7 +99,7 @@ function makeGithubIssueRequest(repository, page = 1) {
 
 		})
 		.catch((err) => {
-			// console.error(err)
+			console.error(err)
 			return reject(err)
 		})	
 	})

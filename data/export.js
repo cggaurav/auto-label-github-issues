@@ -3,6 +3,8 @@ const Promise = require('bluebird')
 const fs = require('fs')
 
 const FILENAME = './data.csv'
+const ISSUES_PER_PAGE = 100
+const WAIT_TIME_BEFORE_REQUESTS = 300
 
 const LABELS = [
 	"bug",
@@ -48,10 +50,10 @@ function writeIssueToFile(issue, labels) {
 }
 
 
-function makeGithubIssueRequest(repository, page = 1, per_page = 10) {
+function makeGithubIssueRequest(repository, page = 1) {
 
 	return new Promise((resolve, reject) => {
-		let ENDPOINT = `https://api.github.com/repos/${repository}/issues?state=closed&page=${page}&per_page=${per_page}`
+		let ENDPOINT = `https://api.github.com/repos/${repository}/issues?state=closed&page=${page}&per_page=${ISSUES_PER_PAGE}`
 
 		console.log(`Making a request for ${repository} and page ${page}`)
 
@@ -89,7 +91,7 @@ function makeGithubIssueRequest(repository, page = 1, per_page = 10) {
 
 			setTimeout(() => {
 				return makeGithubIssueRequest(repository, page + 1)
-			}, 300)
+			}, WAIT_TIME_BEFORE_REQUESTS)
 
 		})
 		.catch((err) => {

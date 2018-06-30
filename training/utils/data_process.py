@@ -13,8 +13,6 @@ class Dictionary(object):
         if word not in self.word2idx:
             self.idx2word.append(word)
             self.word2idx[word] = len(self.idx2word) - 1
-            print self.idx2word
-            print self.word2idx
         return self.word2idx[word]
 
     def add_sentence(self, sentence):
@@ -56,3 +54,9 @@ class Corpus(object):
 
 # python utils/data_process.py in /training
 corpus = Corpus('../data/data.example.csv')
+
+print corpus.dictionary.word2idx
+print '-'
+print corpus.dictionary.idx2word
+print '-'
+print corpus.data

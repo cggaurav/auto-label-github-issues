@@ -32,3 +32,6 @@ class LSTMClassifier(nn.Module):
         lstm_out, self.hidden = self.lstm(x, self.hidden)
         y  = self.hidden2label(lstm_out[-1])
         return y
+
+if __name__=='__main__':
+    print 'LSTM'

@@ -8,7 +8,7 @@ issues.
 
 ## Supported Labels
 
-After looking at Github's [default](https://help.github.com/articles/about-labels/) labels and what's being used in the projets above we as a first pass are training.
+After looking at Github's [default](https://help.github.com/articles/about-labels/) labels and what's being used in the projets above we as a first pass are training. See [Labels](data/data.labels.csv)
 
 ```
 bug

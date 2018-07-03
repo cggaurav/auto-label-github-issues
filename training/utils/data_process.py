@@ -95,26 +95,33 @@ class TxtDatasetProcessing(Dataset):
 
     def __getitem__(self, index):
 
-        for i in range(len(self.file)):
+        count = 0
+
+        for line in self.file:
             # Lets process the right index
-            if i == index:
-                title = cleanString(getTitle(file[i]))
-                labelled = getLabel(file[i])
+            if count == index:
+                title = cleanString(getTitle(line))
+                labelled = getLabel(line)
                 text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
 
                 for word in title.split():
                     if word.strip() in self.corpus.dictionary.word2idx:
                         txt[count] = self.corpus.dictionary.word2idx[word.strip()]
-                
+
                 # TODO: How does this look?
                 # If only one label, then [1, 0, 0, 0, 0 ]
                 # If multiple labels, then [1, 0, 1, 0, 0 ]
                 label = torch.LongTensor([self.corpus.dictionary.label2idx[labelled]])
                 return text, label
 
+            count = count + 1
+
     def __len__(self):
         # TODO, length of training data, # of lines in CSV
-        return len(self.file)
+        count = 0
+        for line in self.file:
+            count += 1
+        return count
 
 if __name__=='__main__':
 

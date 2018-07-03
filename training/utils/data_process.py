@@ -97,14 +97,18 @@ class TxtDatasetProcessing(Dataset):
 
         count = 0
 
+        text = None
+        label = None
+
         for line in self.file:
             # Lets process the right index
             if count == index:
 
-                count = count + 1
-
                 title = cleanString(getTitle(line))
                 labelled = getLabel(line)
+
+                print title, labelled
+
                 text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
 
                 for word in title.split():
@@ -116,9 +120,9 @@ class TxtDatasetProcessing(Dataset):
                 # If multiple labels, then [1, 0, 1, 0, 0 ]
                 label = torch.LongTensor([self.corpus.dictionary.label2idx[labelled]])
 
-                print text, label
+            count = count + 1
 
-                return text, label
+        return text, label
 
 
     def __len__(self):
@@ -144,7 +148,6 @@ if __name__=='__main__':
     print corpus.dictionary.label2idx
     print '-'
     print corpus.data
-
 
     textdatasetprocessing = TxtDatasetProcessing('../data/data.example.csv', corpus)
 

@@ -3,9 +3,7 @@ import torch.nn.functional as F
 import torch
 from torch.autograd import Variable
 
-
 class LSTMClassifier(nn.Module):
-
     def __init__(self, embedding_dim, hidden_dim, vocab_size, label_size, batch_size, use_gpu):
         super(LSTMClassifier, self).__init__()
         self.hidden_dim = hidden_dim

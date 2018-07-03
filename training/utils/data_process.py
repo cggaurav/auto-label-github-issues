@@ -9,9 +9,14 @@ with open('../data/data.labels.csv', 'r') as file:
     for label in file:
         LABELS.append(label.strip())
 
-# CSV functions()
+## CSV functions()
 def getTitle(line):
     return line.split(',')[2]
+
+def getLabel(line):
+    # Make this cleaner
+    # TODO: Get all the other labels
+    return line.split(',')[4].split('|')[0].strip()
 
 def cleanString(string):
     # 1. Replace /,.-=` etc with space then tokenize
@@ -79,31 +84,37 @@ class Corpus(object):
 
         return ids
 
+# DOCS: https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset
+# https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset
 class TxtDatasetProcessing(Dataset):
-    def __init__(self, filename, sentence_length, corpus):
-        file_labels = open(filename, 'r')
-        labels = []
-        for line in file_labels:
-            # Just take the first label
-            # TODO: Make cleaner
-            label = line.split(',')[4].split('|')[0].strip()
-
-            labels.append(label)
-
-        file_labels.close()
-
-        self.label = labels
+    def __init__(self, filename, corpus):
         self.corpus = corpus
-        self.sentence_length = sentence_length
 
+        # Keep the file open
+        self.file = open(filename, 'r')
 
     def __getitem__(self, index):
-        # TODO
-        return
+
+        for i in range(len(self.file)):
+            # Lets process the right index
+            if i == index:
+                title = cleanString(getTitle(file[i]))
+                labelled = getLabel(file[i])
+                text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
+
+                for word in title.split():
+                    if word.strip() in self.corpus.dictionary.word2idx:
+                        txt[count] = self.corpus.dictionary.word2idx[word.strip()]
+                
+                # TODO: How does this look?
+                # If only one label, then [1, 0, 0, 0, 0 ]
+                # If multiple labels, then [1, 0, 1, 0, 0 ]
+                label = torch.LongTensor([self.corpus.dictionary.label2idx[labelled]])
+                return text, label
 
     def __len__(self):
-        # TODO
-        return
+        # TODO, length of training data, # of lines in CSV
+        return len(self.file)
 
 if __name__=='__main__':
 
@@ -123,8 +134,6 @@ if __name__=='__main__':
     print corpus.data
 
 
-    textdatasetprocessing = TxtDatasetProcessing('../data/data.example.csv', 32, corpus)
+    textdatasetprocessing = TxtDatasetProcessing('../data/data.example.csv', corpus)
 
-    print textdatasetprocessing.label
-    print '-'
-    print textdatasetprocessing.sentence_length
+    print textdatasetprocessing

@@ -89,12 +89,13 @@ class Corpus(object):
 class TxtDatasetProcessing(Dataset):
     def __init__(self, filename, corpus):
         self.corpus = corpus
-
+        self.file = []
         # Keep the file open
-        self.file = open(filename, 'r')
+        with open(filename, 'r') as file:
+            for line in file:
+                self.file.append(line)
 
     def __getitem__(self, index):
-
         count = 0
 
         text = None
@@ -106,8 +107,6 @@ class TxtDatasetProcessing(Dataset):
 
                 title = cleanString(getTitle(line))
                 labelled = getLabel(line)
-
-                print title, labelled
 
                 text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
 

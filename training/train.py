@@ -60,7 +60,9 @@ if __name__=='__main__':
         total = 0.0
 
         for iter, train_data in enumerate(train_loader):
+
             train_inputs, train_labels = train_data
+
             train_labels = torch.squeeze(train_labels)
 
             if USE_GPU:

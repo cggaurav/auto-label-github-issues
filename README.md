@@ -23,7 +23,7 @@ doc
 
 We are picking the `title`, the first `thread` and mapping the existing labels in the issues above to our initial version. Our baseline implementation is an [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
-
+We are using `pytorch v0.3.1`
 
 ## Demo
 

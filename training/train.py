@@ -1,6 +1,5 @@
 import os
 import torch
-import copy
 
 from torch.utils.data import DataLoader
 import torch.optim as optim
@@ -10,12 +9,11 @@ from torch.autograd import Variable
 import utils.data_process as DataProcess
 import utils.lstm_classifier as LSTMC
 
+from datetime import datetime
+
+
 USE_PLOT = False
 SAVE_MODEL = True
-
-if SAVE_MODEL:
-    import pickle
-    from datetime import datetime
 
 INPUT_FILE = '../data/data.example.csv'
 ## CONFIGURATIONS
@@ -115,12 +113,23 @@ if __name__=='__main__':
 
     if SAVE_MODEL:
         # TODO: Save `.pth` file
-        modelfilename = 'models/GITHUB_ISSUE_CLASSIFIER_' + datetime.now().strftime("%d_%h_%m") + '.pkl'
+        modelfilename = 'models/GITHUB_ISSUE_CLASSIFIER_' + datetime.now().strftime("%d_%h_%m") + '.pth'
+
         result['modelfilename'] = modelfilename
 
-        modelfile = open(modelfilename, 'wb')
+        state = {
+            'epoch': EPOCHS,
+            'state_dict': model.state_dict(),
+            'optimizer' : optimizer.state_dict(),
+            'learning_rate': LEARNING_RATE
+        }
+        
+        torch.save(state, modelfilename)
 
-        pickle.dump(result, modelfile)
 
-        modelfile.close()
+        # modelfile = open(modelfilename, 'wb')
+
+        # pickle.dump(result, modelfile)
+
+        # modelfile.close()
         print('File %s is saved.' % modelfilename)

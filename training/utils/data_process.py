@@ -100,6 +100,7 @@ class TxtDatasetProcessing(Dataset):
 
         text = None
         label = None
+        text_count = 0
 
         for line in self.file:
             # Lets process the right index
@@ -112,7 +113,8 @@ class TxtDatasetProcessing(Dataset):
 
                 for word in title.split():
                     if word.strip() in self.corpus.dictionary.word2idx:
-                        text[count] = self.corpus.dictionary.word2idx[word.strip()]
+                        text[text_count] = self.corpus.dictionary.word2idx[word.strip()]
+                        text_count = text_count + 1
 
                 # TODO: How does this look?
                 # If only one label, then [1, 0, 0, 0, 0 ]

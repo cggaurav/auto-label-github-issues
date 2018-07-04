@@ -67,7 +67,8 @@ if __name__=='__main__':
 
             if USE_GPU:
                 train_inputs, train_labels = Variable(train_inputs.cuda()), train_labels.cuda()
-            else: train_inputs = Variable(train_inputs)
+            else: 
+                train_inputs = Variable(train_inputs)
 
             model.zero_grad()
             model.BATCH_SIZE = len(train_labels)

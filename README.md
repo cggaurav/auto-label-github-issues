@@ -21,10 +21,10 @@ doc
 
 ## Training Strategy
 
-We are picking the `title`, the first `thread` and mapping the existing labels in the issues above to our initial version. Our baseline implementation is an [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+We are picking the `title` and mapping the existing labels in the issues above to our baseline version. We are using [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
 We are using `pytorch v0.3.1`
 
 ## Demo
 
-Here you [go]()
+Here you [go](https://cggaurav.net/auto-label-github-issues/)

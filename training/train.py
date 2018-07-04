@@ -38,14 +38,14 @@ def adjust_learning_rate(optimizer, epoch):
 
 if __name__=='__main__':
 
-    corpus = DataProcess.Corpus(INPUT_FILE)
+    CORPUS = DataProcess.Corpus(INPUT_FILE)
 
     model = LSTMC.LSTMClassifier(embedding_dim=EMBEDDING_DIM, hidden_dim=HIDDEN_DIM, 
-                           vocab_size=len(corpus.dictionary), label_size=NLABEL, batch_size=BATCH_SIZE, use_gpu=USE_GPU)
+                vocab_size=len(CORPUS.dictionary), label_size=NLABEL, batch_size=BATCH_SIZE, use_gpu=USE_GPU)
     if USE_GPU:
         model = model.cuda()
 
-    dtrain_set = DataProcess.TxtDatasetProcessing(INPUT_FILE, corpus)
+    dtrain_set = DataProcess.TxtDatasetProcessing(INPUT_FILE, CORPUS)
 
     train_loader = DataLoader(dtrain_set, batch_size=BATCH_SIZE, shuffle=True, num_workers=4)
 
@@ -121,15 +121,14 @@ if __name__=='__main__':
             'epoch': EPOCHS,
             'state_dict': model.state_dict(),
             'optimizer' : optimizer.state_dict(),
-            'learning_rate': LEARNING_RATE
+            'embedding_dim': EMBEDDING_DIM,
+            'hidden_dim': HIDDEN_DIM,
+            'batch_size': BATCH_SIZE,
+            'label_size': NLABEL,
+            'learning_rate': LEARNING_RATE,
+            'vocab_size': len(CORPUS.dictionary)
         }
-        
+
         torch.save(state, modelfilename)
 
-
-        # modelfile = open(modelfilename, 'wb')
-
-        # pickle.dump(result, modelfile)
-
-        # modelfile.close()
         print('File %s is saved.' % modelfilename)

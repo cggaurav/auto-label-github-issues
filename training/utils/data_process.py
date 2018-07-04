@@ -11,22 +11,24 @@ with open('../data/data.labels.csv', 'r') as file:
         LABELS.append(label.strip())
 
 ## CSV functions()
-def getTitle(line):
+def CSVLineGetTitle(line):
     return line.split(',')[2]
 
-def getLabel(line):
+def CSVLineGetLabel(line):
     # Make this cleaner
     # TODO: Get all the other labels
     try:
         return line.strip().split(',')[4].strip().split('|')[0].strip()
     except:
+        # Default to help wanted becuase incomplete data
         return "help wanted"
 
-
-def cleanString(string):
+def normalizeText(string):
     # 1. Replace /,.-=` etc with space then tokenize
     # 2. Make everything lowercase
-    string = string.replace(',',' ').replace('.',' ').replace('=',' ').replace('`',' ').replace('/',' ').replace('-',' ').replace('"', ' ').replace('#',' ').replace(':',' ').replace(';',' ').replace('*', ' ').strip().lower()
+    string = string.strip().replace(',',' ').replace('.',' ').replace('=',' ').replace('`',' ').replace('/',' ')
+    string = string.replace('-',' ').replace('"', ' ').replace('#',' ').replace(':',' ').replace(';',' ')
+    string = string.replace('*', ' ').strip().lower()
     return string
 
 
@@ -70,7 +72,7 @@ class Corpus(object):
         with open(filepath, 'r') as file:
             tokens = 0
             for line in file:
-                title = cleanString(getTitle(line))
+                title = normalizeText(CSVLineGetTitle(line))
                 words = title.split()
                 tokens += len(words)
                 for word in words:
@@ -81,13 +83,26 @@ class Corpus(object):
             ids = torch.LongTensor(tokens)
             token = 0
             for line in file:
-                title = cleanString(getTitle(line))
+                title = normalizeText(CSVLineGetTitle(line))
                 words = title.split()
                 for word in words:
                     ids[token] = self.dictionary.word2idx[word]
                     token += 1
 
         return ids
+
+    def transform(self, title):
+        title = normalizeText(title)
+
+        text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
+        text_count = 0
+
+        for word in title.split():
+            if word.strip() in self.dictionary.word2idx:
+                text[text_count] = self.dictionary.word2idx[word.strip()]
+                text_count = text_count + 1
+
+        return text
 
 # DOCS: https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset
 # https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset
@@ -114,8 +129,8 @@ class TxtDatasetProcessing(Dataset):
             if count == index:
 
                 # print line
-                title = cleanString(getTitle(line))
-                labelled = cleanString(getLabel(line))
+                title = normalizeText(CSVLineGetTitle(line))
+                labelled = normalizeText(CSVLineGetLabel(line))
 
                 text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
 

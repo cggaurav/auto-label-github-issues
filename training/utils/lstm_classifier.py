@@ -6,9 +6,11 @@ from torch.autograd import Variable
 class LSTMClassifier(nn.Module):
     def __init__(self, embedding_dim, hidden_dim, vocab_size, label_size, batch_size, use_gpu):
         super(LSTMClassifier, self).__init__()
+        self.embedding_dim = embedding_dim
         self.hidden_dim = hidden_dim
         self.batch_size = batch_size
         self.use_gpu = use_gpu
+        self.vocab_size = vocab_size
 
         self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         self.lstm = nn.LSTM(embedding_dim, hidden_dim)

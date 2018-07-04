@@ -67,7 +67,7 @@ if __name__=='__main__':
 
         for iter, train_data in enumerate(train_loader):
 
-            print "Training..."
+            print "Epoch: %s | Training : %s" % (epoch, iter)
 
             train_inputs, train_labels = train_data
 

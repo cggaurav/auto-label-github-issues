@@ -10,6 +10,10 @@ from torch.autograd import Variable
 import utils.data_process as DataProcess
 import utils.lstm_classifier as LSTMC
 
+# ISSUE: https://github.com/pytorch/pytorch/issues/6932#issuecomment-384509898
+# NOTE: USE TORCH 0.3.1
+print "Torch version %s" % torch.__version__
+
 USE_PLOT = False
 SAVE_MODEL = True
 
@@ -48,6 +52,7 @@ if __name__=='__main__':
 
     optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE)
     # TODO: Change for more label output
+    # DOCS: https://pytorch.org/docs/stable/nn.html#crossentropyloss
     loss_function = nn.CrossEntropyLoss()
     train_loss = []
     train_accuracy = []
@@ -71,7 +76,9 @@ if __name__=='__main__':
                 train_inputs = Variable(train_inputs)
 
             model.zero_grad()
-            model.BATCH_SIZE = len(train_labels)
+            
+            # model.BATCH_SIZE = len(train_labels)
+
             model.hidden = model.init_hidden()
             output = model(train_inputs.t())
 
@@ -105,12 +112,12 @@ if __name__=='__main__':
 
     if SAVE_MODEL:
         # TODO: Save `.pth` file
-        modelfile = 'models/LSTM_classifier_' + datetime.now().strftime("%d-%h-%m-%s") + '.pkl'
-        result['modelfile'] = modelfile
+        modelfilename = 'models/GITHUB_ISSUE_CLASSIFIER_' + datetime.now().strftime("%d_%h_%m") + '.pkl'
+        result['modelfilename'] = modelfilename
 
-        fp = open(modelfile, 'wb')
+        modelfile = open(modelfilename, 'wb')
 
-        pickle.dump(result, fp)
+        pickle.dump(result, modelfile)
 
-        fp.close()
-        print('File %s is saved.' % modelfile)
+        modelfile.close()
+        print('File %s is saved.' % modelfilename)

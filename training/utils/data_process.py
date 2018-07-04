@@ -1,6 +1,7 @@
 import os
 import torch
 import sys
+import copy
 from torch.utils.data.dataset import Dataset
 import numpy as np
 
@@ -16,12 +17,16 @@ def getTitle(line):
 def getLabel(line):
     # Make this cleaner
     # TODO: Get all the other labels
-    return line.split(',')[4].split('|')[0].strip()
+    try:
+        return line.strip().split(',')[4].strip().split('|')[0].strip()
+    except:
+        return "help wanted"
+
 
 def cleanString(string):
     # 1. Replace /,.-=` etc with space then tokenize
     # 2. Make everything lowercase
-    string = string.replace(',',' ').replace('.',' ').replace('=',' ').replace('`',' ').replace('/',' ').replace('-',' ').lower()
+    string = string.replace(',',' ').replace('.',' ').replace('=',' ').replace('`',' ').replace('/',' ').replace('-',' ').replace('"', ' ').replace('#',' ').replace(':',' ').replace(';',' ').replace('*', ' ').strip().lower()
     return string
 
 
@@ -90,10 +95,12 @@ class TxtDatasetProcessing(Dataset):
     def __init__(self, filename, corpus):
         self.corpus = corpus
         self.file = []
-        # Keep the file open
+
         with open(filename, 'r') as file:
             for line in file:
                 self.file.append(line)
+
+        file.close()
 
     def __getitem__(self, index):
         count = 0
@@ -106,8 +113,9 @@ class TxtDatasetProcessing(Dataset):
             # Lets process the right index
             if count == index:
 
+                # print line
                 title = cleanString(getTitle(line))
-                labelled = getLabel(line)
+                labelled = cleanString(getLabel(line))
 
                 text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
 

@@ -10,10 +10,6 @@ from torch.autograd import Variable
 import utils.data_process as DataProcess
 import utils.lstm_classifier as LSTMC
 
-# ISSUE: https://github.com/pytorch/pytorch/issues/6932#issuecomment-384509898
-# NOTE: USE TORCH 0.3.1
-print "Torch version %s" % torch.__version__
-
 USE_PLOT = False
 SAVE_MODEL = True
 
@@ -31,10 +27,15 @@ HIDDEN_DIM = 50
 NLABEL = 6
 USE_GPU = torch.cuda.is_available()
 
+# ISSUE: https://github.com/pytorch/pytorch/issues/6932#issuecomment-384509898
+# NOTE: USE TORCH 0.3.1
+print "Torch version : %s" % torch.__version__
+print "Using GPU : %s" % USE_GPU
+
 def adjust_learning_rate(optimizer, epoch):
     lr = LEARNING_RATE * (0.1 ** (epoch // 10))
     for param_group in optimizer.param_groups:
-        param_group['lr'] = lr
+        param_group['learning_rate'] = lr
     return optimizer
 
 if __name__=='__main__':
@@ -66,6 +67,8 @@ if __name__=='__main__':
 
         for iter, train_data in enumerate(train_loader):
 
+            print "Training..."
+
             train_inputs, train_labels = train_data
 
             train_labels = torch.squeeze(train_labels)
@@ -76,7 +79,7 @@ if __name__=='__main__':
                 train_inputs = Variable(train_inputs)
 
             model.zero_grad()
-            
+
             # model.BATCH_SIZE = len(train_labels)
 
             model.hidden = model.init_hidden()

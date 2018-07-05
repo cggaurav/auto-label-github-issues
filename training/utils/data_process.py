@@ -23,6 +23,16 @@ def CSVLineGetLabel(line):
         # Default to help wanted becuase incomplete data
         return "help wanted"
 
+def getLabels():
+    return LABELS
+
+def getLabel2Idx():
+    label2idx = {}
+    labels = getLabels()
+    for i in range(len(labels)):
+        label2idx[labels[i]] = i
+    return label2idx
+
 def normalizeText(string):
     # 1. Replace /,.-=` etc with space then tokenize
     # 2. Make everything lowercase
@@ -37,11 +47,8 @@ class Dictionary(object):
         self.word2idx = {}
         self.idx2word = []
         self.word2count = {}
-        self.labels = LABELS
-        self.label2idx = {}
-
-        for i in range(len(self.labels)):
-            self.label2idx[self.labels[i]] = i
+        self.labels = getLabels()
+        self.label2idx = getLabel2Idx()
 
     def add_word(self, word):
         if word not in self.word2idx:

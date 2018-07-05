@@ -33,7 +33,7 @@ if USE_GPU:
     MODEL = MODEL.cuda()
 
 def predict(text):
-    print "Predcting for : %s" % text
+    print "Predicting for : %s" % text
     probability = MODEL.forward(Variable(CORPUS.transform(text)))
     score, class_index = probability.max(1) 
     return LABELS[class_index.data[0]], score.data[0]

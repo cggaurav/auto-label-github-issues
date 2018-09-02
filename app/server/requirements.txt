@@ -1,3 +1,4 @@
-Flask
+Flask==0.12.2
 gunicorn
 torch==0.3.1
+gevent

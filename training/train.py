@@ -16,6 +16,7 @@ USE_PLOT = False
 SAVE_MODEL = True
 
 INPUT_FILE = '../data/data.example.csv'
+
 ## CONFIGURATIONS
 EPOCHS = 50
 BATCH_SIZE = 1 # KISS
@@ -52,7 +53,10 @@ if __name__=='__main__':
     optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE)
     # TODO: Change for more label output
     # DOCS: https://pytorch.org/docs/stable/nn.html#crossentropyloss
-    loss_function = nn.CrossEntropyLoss()
+
+    # TODO: Understand loss functions
+    # https://pytorch.org/docs/stable/nn.html#torch.nn.BCELoss
+    loss_function = nn.BCELoss()
     train_loss = []
     train_accuracy = []
 

@@ -8,18 +8,47 @@
 <body>
 	<h1> Auto Label Github Issues </h1>
 
-	<form id="issue_form" class="form" action="/submit" accept-charset="UTF-8" method="post">
-	    <input autofocus="autofocus" autocomplete="off" aria-label="Issue title" type="text" value="" name="issue" id="issue_title">
+	<form id="issue_form" class="form" accept-charset="UTF-8" method="post">
+	    <input id="issue_input" autofocus="autofocus" autocomplete="off" aria-label="Issue title" type="text" value="" name="issue" id="issue_title">
 	</form>
 	<div class="labels">
-		<a class="label bug" title="bug" href="">bug</a>
-		<a class="label doc" title="doc" href="">doc</a>
-		<a class="label enhancement" title="enhancement" href="">enhancement</a>
-		<a class="label feature" title="feature" href="">feature</a>
-		<a class="label help-wanted" title="help wanted" href="">help wanted</a>
-		<a class="label question" title="question" href="">question</a>
+		<a class="label bug" id="bug" title="bug">bug</a>
+		<a class="label doc" id="doc" title="doc">doc</a>
+		<a class="label enhancement" id="enhancement" title="enhancement">enhancement</a>
+		<a class="label feature" id="feature" title="feature">feature</a>
+		<a class="label help-wanted" id="help" title="help wanted">help wanted</a>
+		<a class="label question" id="question" title="question">question</a>
 	</div>
+	<div class="score">
+		<p id="score"></p>
+	</div>
+	<!-- Make things simpler with JQuery -->
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous">
+	</script>
 </body>
 	<script>
+		const URL = 'https://www.floydlabs.com/serve/tTFeXco4LFtuXcCUXcTvEd?issue='
+		$(function() {
+			$('#issue_form').keypress((e) => {
+				if (e.which == 13) {
+					e.preventDefault()
+
+					let issue = $('#issue_input').val()
+
+					console.log(`ISSUE: ${issue}`)
+
+			  		// OK Lets go to to the model
+			  		$.getJSON([URL, issue].join(''), (detect) => {
+			  			console.log(`ISSUE RESULT: ${JSON.stringify(detect)}`)
+			  			$(`.label`).css('visibility', 'hidden')
+			  			$(`#${detect.label}`).css('visibility', 'visible')
+			  		 	$('#score').text(`Score: ${detect.score}`)
+			  		},"json")
+			  	}
+			})
+		})
 	</script>
 </html>

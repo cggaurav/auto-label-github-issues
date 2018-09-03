@@ -2,7 +2,11 @@
 
 API backend from which the model is served
 
-### Deploy
+### Heroku
+
+Stopped after an issue with slug size
 
 `git push heroku `git subtree split --prefix app/server master`:master --force`
 `git subtree push --prefix app/server master`
+
+### Floydhub

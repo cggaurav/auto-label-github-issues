@@ -10,3 +10,5 @@ Stopped after an issue with slug size
 `git subtree push --prefix app/server master`
 
 ### Floydhub
+
+Using floyd to deploy the model out.

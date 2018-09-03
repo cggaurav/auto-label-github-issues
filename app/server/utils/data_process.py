@@ -5,10 +5,10 @@ import copy
 from torch.utils.data.dataset import Dataset
 import numpy as np
 
-LABELS = []
-with open('./data/data.labels.csv', 'r') as file:
-    for label in file:
-        LABELS.append(label.strip())
+# with open('../data/data.labels.csv', 'r') as file:
+#     for label in file:
+#         LABELS.append(label.strip())
+LABELS = ["bug", "question", "enhancement", "feature","help wanted", "doc"]
 
 ## CSV functions()
 def CSVLineGetTitle(line):

@@ -18,7 +18,7 @@ SAVE_MODEL = True
 INPUT_FILE = '../data/data.example.csv'
 
 ## CONFIGURATIONS
-EPOCHS = 50
+EPOCHS = 10
 BATCH_SIZE = 1 # KISS
 LEARNING_RATE = 0.01
 EMBEDDING_DIM = 100
@@ -56,7 +56,9 @@ if __name__=='__main__':
 
     # TODO: Understand loss functions
     # https://pytorch.org/docs/stable/nn.html#torch.nn.BCELoss
-    loss_function = nn.BCELoss()
+    # loss_function = nn.BCELoss()
+    loss_function = nn.CrossEntropyLoss()
+
     train_loss = []
     train_accuracy = []
 

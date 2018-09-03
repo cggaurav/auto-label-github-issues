@@ -1,5 +1,7 @@
 # auto-label-github issues
 
+This project exposes an LSTM model that auto labels Github issues. 
+
 ## Training set
 
 Following [Octoverse](https://octoverse.github.com/), we looked at the "Ten most discussed repositores" and trained on the closed
@@ -8,7 +10,7 @@ issues.
 
 ## Supported Labels
 
-After looking at Github's [default](https://help.github.com/articles/about-labels/) labels and what's being used in the projets above we as a first pass are training. See [Labels](data/data.labels.csv)
+After looking at Github's [default](https://help.github.com/articles/about-labels/) labels and what's being used in the projets above we as a first pass are training. See [Labels](app/server/data/data.labels.csv)
 
 ```
 bug
@@ -28,3 +30,7 @@ We are using `pytorch v0.3.1`
 ## Demo
 
 Here you [go](https://cggaurav.net/auto-label-github-issues/)
+
+## Contribute
+
+TODO

@@ -43,6 +43,10 @@ input {
 	font-size: 20px;
 }
 
+.note {
+	font-size: 10px;
+}
+
 .bug {
 	background-color: red; 
 }

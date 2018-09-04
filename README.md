@@ -1,6 +1,6 @@
-# auto-label-github issues
+# auto-label-github issues (alpha)
 
-This project exposes an LSTM model that auto labels Github issues. 
+This project exposes an LSTM model that auto labels Github issues.
 
 ## Training set
 

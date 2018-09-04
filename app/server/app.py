@@ -11,10 +11,11 @@ import utils.lstm_classifier as LSTMC
 
 app = Flask(__name__)
 
-MODELFILE_NAME = './models/GITHUB_ISSUE_CLASSIFIER_05_Jul_07.pth'
-INPUT_FILE = './data/data.example.csv' # QUESTION: Why load the corpus again?
+# TODO: Load this from ENV
+CORPUSFILE_NAME = './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.corpus.pkl'
+MODELFILE_NAME = './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.model.pth'
 
-CORPUS = DataProcess.Corpus(INPUT_FILE)
+CORPUS = DataProcess.Corpus(CORPUSFILE_NAME)
 
 LABELS = DataProcess.getLabels()
 LABELS2IDX = DataProcess.getLabel2Idx()
@@ -43,7 +44,8 @@ def predict():
     issue = str(request.args.get('issue'))
     # return "Hello, Auto Label Github Issues (pass ?issue=)| " + issue
     probability = MODEL.forward(Variable(CORPUS.transform(issue)))
-    score, class_index = probability.max(1) 
+    normalized_scores = torch.nn.functional.softmax(probability)
+    score, class_index = normalized_scores.max(1)
 
     return jsonify(
         label=LABELS[class_index.data[0]],

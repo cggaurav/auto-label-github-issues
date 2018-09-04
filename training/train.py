@@ -11,16 +11,17 @@ import utils.lstm_classifier as LSTMC
 
 from datetime import datetime
 
-
 USE_PLOT = False
 SAVE_MODEL = True
 
 INPUT_FILE = '../data/data.example.csv'
 
 ## CONFIGURATIONS
+# TODO: Understand how the loss + accuracy changes with these parameters
 EPOCHS = 10
-BATCH_SIZE = 1 # KISS
 LEARNING_RATE = 0.01
+
+BATCH_SIZE = 1 # KISS
 EMBEDDING_DIM = 100
 HIDDEN_DIM = 50
 NLABEL = 6
@@ -28,6 +29,7 @@ USE_GPU = torch.cuda.is_available()
 
 # ISSUE: https://github.com/pytorch/pytorch/issues/6932#issuecomment-384509898
 # NOTE: USE TORCH 0.3.1
+
 print "Torch version : %s" % torch.__version__
 print "Using GPU : %s" % USE_GPU
 
@@ -119,7 +121,7 @@ if __name__=='__main__':
 
     if SAVE_MODEL:
         # TODO: Save `.pth` file
-        modelfilename = 'models/GITHUB_ISSUE_CLASSIFIER_' + datetime.now().strftime("%d_%h_%m") + '.pth'
+        modelfilename = 'models/GITHUB_ISSUE_CLASSIFIER_' + datetime.now().strftime("%d_%h_%m") + '.model.pth'
 
         result['modelfilename'] = modelfilename
 

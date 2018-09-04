@@ -4,6 +4,8 @@ import sys
 import copy
 from torch.utils.data.dataset import Dataset
 import numpy as np
+from datetime import datetime
+import pickle
 
 # with open('../data/data.labels.csv', 'r') as file:
 #     for label in file:
@@ -76,27 +78,42 @@ class Corpus(object):
 
     def tokenize(self, filename):
         filepath = os.path.join(filename)
-        with open(filepath, 'r') as file:
-            tokens = 0
-            for line in file:
-                title = normalizeText(CSVLineGetTitle(line))
-                words = title.split()
-                tokens += len(words)
-                for word in words:
-                    self.dictionary.add_word(word)
 
-        # Tokenize file content
-        with open(filepath, 'r') as file:
-            ids = torch.LongTensor(tokens)
-            token = 0
-            for line in file:
-                title = normalizeText(CSVLineGetTitle(line))
-                words = title.split()
-                for word in words:
-                    ids[token] = self.dictionary.word2idx[word]
-                    token += 1
+        print filepath
+        # If pickle file, just load word2idx
+        if filepath.endswith('.corpus.pkl'):
+            data = pickle.load(open(filepath, "rb" ))
+            self.dictionary.word2idx = data['word2idx']
+            ids = data['ids']
 
-        return ids
+            return ids
+
+        else:
+            with open(filepath, 'r') as file:
+                tokens = 0
+                for line in file:
+                    title = normalizeText(CSVLineGetTitle(line))
+                    words = title.split()
+                    tokens += len(words)
+                    for word in words:
+                        self.dictionary.add_word(word)
+
+            # Tokenize file content
+            with open(filepath, 'r') as file:
+                ids = torch.LongTensor(tokens)
+                token = 0
+                for line in file:
+                    title = normalizeText(CSVLineGetTitle(line))
+                    words = title.split()
+                    for word in words:
+                        ids[token] = self.dictionary.word2idx[word]
+                        token += 1
+
+            # SAVE the pickle file 
+            corpusfile = 'models/GITHUB_ISSUE_CLASSIFIER_' + datetime.now().strftime("%d_%h_%m") + '.corpus.pkl'
+            pickle.dump({ "word2idx": self.dictionary.word2idx, "ids": ids }, open(corpusfile, "wb"))
+
+            return ids
 
     def transform(self, title):
         title = normalizeText(title)
@@ -104,6 +121,7 @@ class Corpus(object):
         text = torch.LongTensor(np.zeros(len(title.split()), dtype=np.int64))
         text_count = 0
 
+        # TODO: save self.dictionary.word2idx() to a pickle file
         for word in title.split():
             if word.strip() in self.dictionary.word2idx:
                 text[text_count] = self.dictionary.word2idx[word.strip()]

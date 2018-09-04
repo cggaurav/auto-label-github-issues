@@ -1,4 +1,7 @@
+# Training data
 data.csv
+data.test.csv
+
 node_modules
 .DS_Store
 
@@ -13,3 +16,5 @@ __pycache__/
 
 venv
 .floydexpt
+
+TODO.md

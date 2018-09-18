@@ -4,7 +4,7 @@ API backend from which the model is served
 
 ### Heroku
 
-Stopped after an issue with slug size
+Stopped after an issue with slug size > 500mb
 
 `git push heroku `git subtree split --prefix app/server master`:master --force`
 `git subtree push --prefix app/server master`
@@ -15,4 +15,4 @@ Using floyd to deploy the model out. Floyd is great as the Heroku for ML though 
 
 ### K8
 
-Going K8 with Dockerfile at last.
+Going K8 with Dockerfile at last. 

@@ -2,7 +2,7 @@
 
 API backend from which the model is served
 
-### Heroku
+### Heroku Python Runtime
 
 Stopped after an issue with slug size > 500mb
 
@@ -16,3 +16,6 @@ Using floyd to deploy the model out. Floyd is great as the Heroku for ML though 
 ### K8
 
 Going K8 with Dockerfile at last. There is so much work needed in taking a model to production in terms of deployments, SSL Proxy etc. 
+
+### Heroku Containers
+

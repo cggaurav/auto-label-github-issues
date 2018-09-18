@@ -11,4 +11,8 @@ Stopped after an issue with slug size
 
 ### Floydhub
 
-Using floyd to deploy the model out.
+Using floyd to deploy the model out. Floyd is great as the Heroku for ML though their serve is in beta and not 24x7.
+
+### K8
+
+Going K8 with Dockerfile at last.

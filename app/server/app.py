@@ -3,6 +3,7 @@ import torch
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask_cors import CORS, cross_origin
 
 from torch.autograd import Variable
 
@@ -10,6 +11,7 @@ import utils.data_process as DataProcess
 import utils.lstm_classifier as LSTMC
 
 app = Flask(__name__)
+cors = CORS(app)
 
 # TODO: Load this from ENV
 CORPUSFILE_NAME = './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.corpus.pkl'
@@ -40,6 +42,7 @@ if USE_GPU:
 
 # TODO: Connect this
 @app.route('/')
+@cross_origin()
 def predict():
     issue = str(request.args.get('issue'))
     # return "Hello, Auto Label Github Issues (pass ?issue=)| " + issue

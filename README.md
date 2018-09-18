@@ -34,3 +34,6 @@ Here you [go](https://cggaurav.net/auto-label-github-issues/)
 ## Contribute
 
 TODO
+
+* Train more labels
+* Output multi labels

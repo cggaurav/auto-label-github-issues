@@ -54,7 +54,8 @@ def predict():
         label=LABELS[class_index.data[0]],
         score=score.data[0],
         issue=issue,
-        meta="app: Auto Label Github Issues"
+        meta="app: Auto Label Github Issues",
+        model=MODELFILE_NAME
     )
 
 # Load the model and run the server

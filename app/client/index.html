@@ -111,16 +111,16 @@
 		// const URL = 'https://www.floydlabs.com/serve/cggaurav/projects/auto-label-github-issues?issue='
 
 		function showAllLabels() {
-			$(`.label`).css('visibility', 'show')
+			$(`.label`).css('visibility', 'visible')
 		}
 
 		function hideAllLabels() {
 			$(`.label`).css('visibility', 'hidden')
 		}
 
-		// $('#issue_form').focus(() => {
-		// 	showAllLabels()
-		// })
+		$('#issue_form').focus(() => {
+			showAllLabels()
+		})
 
 		$(function() {
 			$('#issue_form').keypress((e) => {

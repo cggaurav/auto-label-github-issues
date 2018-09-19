@@ -96,6 +96,7 @@
 	</div>
 	<div class="score">
 		<p id="score"></p>
+		<p id="model"></p>
 	</div>
 
 	<a href="https://github.com/cggaurav/auto-label-github-issues"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -141,6 +142,7 @@
 
 			  			$(`#${detect.label.replace(/ /g, '-')}`).css('visibility', 'visible')
 			  		 	$('#score').text(`Score: ${detect.score} / 1`)
+			  		 	$('#model').text(`Model: ${detect.model}`)
 			  		},"json")
 			  	}
 			})

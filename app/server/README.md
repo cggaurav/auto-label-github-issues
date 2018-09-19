@@ -1,6 +1,6 @@
 ##
 
-API backend from which the model is served
+API backend from which the model is served. Experimented with ones below for "easy + cheap" deploys.
 
 ### Heroku Python Runtime
 
@@ -18,4 +18,6 @@ Using floyd to deploy the model out. Floyd is great as the Heroku for ML though 
 Going K8 with Dockerfile at last. There is so much work needed in taking a model to production in terms of deployments, SSL Proxy etc. 
 
 ### Heroku Containers
+
+Seems to work since slug size is not an issue and images are pushed to their own registry!
 

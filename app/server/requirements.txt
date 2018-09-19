@@ -1,4 +1,6 @@
 torch==0.3.1
-gunicorn==19.6.0
+gunicorn
 Flask
 flask-cors
+Jinja2
+Werkzeug

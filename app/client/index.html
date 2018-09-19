@@ -140,7 +140,7 @@
 
 			  			hideAllLabels()
 
-			  			$(`#${detect.label.replace(/ /g, '-')}`).css('visibility', 'visible')
+			  			$(`#${detect.label.replace(' ', '-')}`).css('visibility', 'visible')
 			  		 	$('#score').text(`Score: ${detect.score} / 1`)
 			  		 	$('#model').text(`Model: ${detect.model}`)
 			  		},"json")

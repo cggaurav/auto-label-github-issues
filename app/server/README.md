@@ -19,5 +19,5 @@ Going K8 with Dockerfile at last. There is so much work needed in taking a model
 
 ### Heroku Containers
 
-Seems to work since slug size is not an issue and images are pushed to their own registry!
+Seems to work since slug size is not an issue and images are pushed to their own registry! [Dockerfile](https://github.com/cggaurav/auto-label-github-issues/blob/master/app/Dockerfile) using Jessie
 

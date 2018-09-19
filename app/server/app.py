@@ -14,8 +14,8 @@ app = Flask(__name__)
 cors = CORS(app)
 
 # TODO: Load this from ENV
-CORPUSFILE_NAME = os.getenv('CORPUS_FILE', './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.corpus.pkl')
-MODELFILE_NAME = os.getenv('MODEL_FILE', './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.model.pth')
+CORPUSFILE_NAME = os.getenv('CORPUS_FILE', './models/GITHUB_ISSUE_CLASSIFIER_19_Sep_09.corpus.pkl')
+MODELFILE_NAME = os.getenv('MODEL_FILE', './models/GITHUB_ISSUE_CLASSIFIER_19_Sep_09.model.pth')
 
 CORPUS = DataProcess.Corpus(CORPUSFILE_NAME)
 

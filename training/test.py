@@ -7,9 +7,9 @@ import utils.data_process as DataProcess
 import utils.lstm_classifier as LSTMC
 
 # TODO: Load this from ENV
-CORPUSFILE_NAME = os.getenv('CORPUS_FILE', './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.corpus.pkl')
-MODELFILE_NAME = os.getenv('MODEL_FILE', './models/GITHUB_ISSUE_CLASSIFIER_04_Sep_09.model.pth')
-TESTFILE_NAME = os.getenv('TEST_FILE', './data/data.test.csv')
+CORPUSFILE_NAME = os.getenv('CORPUS_FILE', './models/GITHUB_ISSUE_CLASSIFIER_19_Sep_09.corpus.pkl')
+MODELFILE_NAME = os.getenv('MODEL_FILE', './models/GITHUB_ISSUE_CLASSIFIER_19_Sep_09.model.pth')
+TESTFILE_NAME = os.getenv('TEST_FILE', '../data/data.test.csv')
 
 CORPUS = DataProcess.Corpus(CORPUSFILE_NAME)
 
@@ -45,6 +45,7 @@ def predict(issue):
 def test():
 	with open(TESTFILE_NAME, 'r') as file:
 	    for line in file:
+            # TODO
 	    	print line
 
 

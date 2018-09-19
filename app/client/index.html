@@ -108,11 +108,26 @@
 </body>
 	<script>
 		const URL = 'https://algi.herokuapp.com/?issue='
-// 		const URL = 'https://www.floydlabs.com/serve/cggaurav/projects/auto-label-github-issues?issue='
+		// const URL = 'https://www.floydlabs.com/serve/cggaurav/projects/auto-label-github-issues?issue='
+
+		function showAllLabels() {
+			$(`.label`).css('visibility', 'show')
+		}
+
+		function hideAllLabels() {
+			$(`.label`).css('visibility', 'hidden')
+		}
+
+		$('#issue_form').focus(() => {
+			showAllLabels()
+		})
+
 		$(function() {
 			$('#issue_form').keypress((e) => {
 				if (e.which == 13) {
 					e.preventDefault()
+
+					showAllLabels()
 
 					let issue = $('#issue_input').val()
 
@@ -121,7 +136,9 @@
 			  		// OK Lets go to to the model
 			  		$.getJSON([URL, issue].join(''), (detect) => {
 			  			console.log(`ISSUE RESULT: ${JSON.stringify(detect)}`)
-			  			$(`.label`).css('visibility', 'hidden')
+
+			  			hideAllLabels()
+
 			  			$(`#${detect.label}`).css('visibility', 'visible')
 			  		 	$('#score').text(`Score: ${detect.score}`)
 			  		},"json")

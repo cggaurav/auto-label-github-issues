@@ -14,12 +14,12 @@ from datetime import datetime
 USE_PLOT = False
 SAVE_MODEL = True
 
-INPUT_FILE = '../data/data.example.csv'
+INPUT_FILE = '../data/data.csv'
 
 ## CONFIGURATIONS
 # TODO: Understand how the loss + accuracy changes with these parameters
 EPOCHS = 10
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.02
 
 BATCH_SIZE = 1 # KISS
 EMBEDDING_DIM = 100

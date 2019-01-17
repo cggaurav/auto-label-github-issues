@@ -1,6 +1,6 @@
 # auto-label-github issues (beta)
 
-This project exposes an LSTM model that auto labels Github issues. The goal is to have the full pipeline in continous deployment and rapidly improve the model accuracy.
+This project exposes an LSTM model that auto labels Github issues. The goal is to have the full pipeline in continous deployment and rapidly improve the model accuracy. This is an independant project to clear the cloud on how to actually build an ML model and understand what it takes for taking it from 0 - 1 with continues integration.
 
 ## Training set
 
